@@ -1,11 +1,9 @@
 package com.app.ebanking.model;
 
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
-// import org.hibernate.annotations.GenericGenerator;
-// import org.iban4j.Iban;
+import org.hibernate.annotations.GenericGenerator;
 
 import jakarta.persistence.*;
 
@@ -14,13 +12,12 @@ import jakarta.persistence.*;
 public class Account {
 
   @Id
-  // @GeneratedValue(generator = "IBAN_GEN")
-  // @GenericGenerator(name = "IBAN_GEN", strategy =
-  // "com.app.ebanking.generator.IbanGenerator")
+  @GeneratedValue(generator = "IBAN_GEN")
+  @GenericGenerator(name = "IBAN_GEN", strategy = "com.app.ebanking.generator.IbanGenerator")
   private String iban;
 
   @Column(name = "currency")
-  private Currency currency;
+  private String currency;
 
   @OneToMany(mappedBy = "account")
   private List<Transaction> transactions;
@@ -29,13 +26,21 @@ public class Account {
   @JoinColumn(name = "client_id")
   private Client client;
 
-  public Account(Client client, Currency currency) {
+  public Account(Client client, String currency) {
     this.client = client;
     this.currency = currency;
     this.transactions = new ArrayList<>();
   }
 
-  public void setCurrency(Currency currency) {
+  public Account(String currency) {
+    this.currency = currency;
+    this.transactions = new ArrayList<>();
+  }
+
+  public Account() {
+  }
+
+  public void setCurrency(String currency) {
     this.currency = currency;
   }
 
@@ -44,7 +49,15 @@ public class Account {
   }
 
   public Client getClient() {
-    return this.client;
+    return client;
+  }
+
+  public String getCurrency() {
+    return this.currency;
+  }
+
+  public List<Transaction> getTransaction() {
+    return transactions;
   }
 
 }

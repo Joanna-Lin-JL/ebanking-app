@@ -39,6 +39,25 @@ public class Transaction {
   public void setDescription(String description) {
     this.description = description;
   }
-  // TODO: set getter and setter for the desired
+
+  public Account getAccount() {
+    return account;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public String getAmount() {
+    return amount;
+  }
+
+  public LocalDate getDate() {
+    return date;
+  }
+
+  public UUID getID() {
+    return id;
+  }
 
 }
