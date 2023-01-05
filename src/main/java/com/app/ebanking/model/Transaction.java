@@ -36,6 +36,9 @@ public class Transaction {
     this.account = account;
   }
 
+  public Transaction() {
+  }
+
   public void setDescription(String description) {
     this.description = description;
   }
