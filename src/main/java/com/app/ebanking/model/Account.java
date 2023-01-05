@@ -3,6 +3,10 @@ package com.app.ebanking.model;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
+
+// import org.hibernate.annotations.GenericGenerator;
+// import org.iban4j.Iban;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -10,7 +14,10 @@ import jakarta.persistence.*;
 public class Account {
 
   @Id
-  private String iban; // Consider iban4j with https://github.com/arturmkrtchyan/iban4j
+  // @GeneratedValue(generator = "IBAN_GEN")
+  // @GenericGenerator(name = "IBAN_GEN", strategy =
+  // "com.app.ebanking.generator.IbanGenerator")
+  private String iban;
 
   @Column(name = "currency")
   private Currency currency;
@@ -19,18 +26,25 @@ public class Account {
   private List<Transaction> transactions;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "client_uuid")
+  @JoinColumn(name = "client_id")
   private Client client;
 
-  public Account(Client client, String iban, Currency currency) {
+  public Account(Client client, Currency currency) {
     this.client = client;
-    this.iban = iban;
     this.currency = currency;
     this.transactions = new ArrayList<>();
   }
 
   public void setCurrency(Currency currency) {
     this.currency = currency;
+  }
+
+  public String getIban() {
+    return this.iban;
+  }
+
+  public Client getClient() {
+    return this.client;
   }
 
 }

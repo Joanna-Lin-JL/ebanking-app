@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UuidGenerator;
+
+// import org.hibernate.annotations.UuidGenerator;
 
 import jakarta.persistence.*;
 
@@ -19,7 +22,7 @@ public class Client {
 
   @OneToMany(mappedBy = "client")
   @Column(name = "accounts")
-  List<Account> accounts;
+  private List<Account> accounts;
 
   public Client() {
     this.accounts = new ArrayList<>();

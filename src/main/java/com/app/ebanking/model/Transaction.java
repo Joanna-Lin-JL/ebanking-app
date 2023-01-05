@@ -3,6 +3,8 @@ package com.app.ebanking.model;
 import java.time.*;
 import java.util.UUID;
 
+import org.hibernate.annotations.UuidGenerator;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -11,7 +13,8 @@ public class Transaction {
 
   @Id
   @GeneratedValue
-  private UUID uuid;
+  @UuidGenerator
+  private UUID id;
 
   @Column(name = "date")
   private LocalDate date;
@@ -27,7 +30,6 @@ public class Transaction {
   private Account account;
 
   public Transaction(String amount, String description, Account account) {
-    this.uuid = UUID.randomUUID();
     this.date = LocalDate.now();
     this.amount = amount;
     this.description = description;

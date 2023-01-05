@@ -22,21 +22,28 @@ public class AccountController {
   ClientController clientController;
 
   @GetMapping("/")
-  public ResponseEntity<Account> getOneAccount(String uuid, String iban) {
-    Client client = clientController.getOneClient(uuid).getBody();
-    if (client == null)
-      return ResponseEntity.notFound().build();
-    // TODO: get account from inside client
-    Optional<Account> account = accountRepository.findById(uuid);
+  public String greeting() {
+    return "Hello world! ";
+  }
+
+  // Consider get account from client
+  @GetMapping("/one")
+  public ResponseEntity<Account> getOneAccount(String iban) {
+    Optional<Account> account = accountRepository.findById(iban);
     if (account.isEmpty())
       return ResponseEntity.notFound().build();
     else
       return ResponseEntity.ok(account.get());
   }
 
-  @GetMapping("/one")
-  public String greeting() {
-    return "Hello world! ";
+  @GetMapping("/client")
+  public ResponseEntity<Client> getClient(String iban) {
+    Optional<Account> account = accountRepository.findById(iban);
+    if (account.isEmpty())
+      return ResponseEntity.notFound().build();
+    else {
+      return ResponseEntity.ok(account.get().getClient());
+    }
   }
 
   @PostMapping("/create")
