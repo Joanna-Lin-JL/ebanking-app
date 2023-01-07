@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.app.ebanking.model.Client;
 import com.app.ebanking.repository.ClientRepository;
 
+/** Custom User Detail Service to load client by username */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
   @Autowired

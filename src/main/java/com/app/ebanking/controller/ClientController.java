@@ -19,22 +19,24 @@ import com.app.ebanking.generator.ResponseHandler;
 import com.app.ebanking.model.Client;
 import com.app.ebanking.repository.ClientRepository;
 
+/** Contains endpoints relating to the client */
 @RestController
 @RequestMapping("/api/client")
 public class ClientController {
   @Autowired
   private ClientRepository clientRepository;
 
+  /** Tester endpoint to greet the client */
   @GetMapping("/")
   public String greeting() {
     return "Hello world! ";
   }
 
-  @GetMapping("/all")
-  public ResponseEntity<List<Client>> getAllClients() {
-    return new ResponseEntity<>(clientRepository.findAll(), HttpStatus.OK);
-  }
-
+  /**
+   * Endpoint to get information about a client
+   * 
+   * @param id the client's uuid given in the request's param
+   */
   @GetMapping("/one")
   public ResponseEntity<Object> getOneClient(@RequestParam String id) {
     try {
@@ -50,21 +52,16 @@ public class ClientController {
     }
   }
 
-  // @PostMapping("/create")
-  // public ResponseEntity<Object> createClient() {
-  // try {
-  // Client new_client = clientRepository.save(new Client());
-  // return ResponseHandler.clientShort(HttpStatus.CREATED, new_client);
-  // } catch (Exception e) {
-  // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-  // }
-  // }
-
   @PutMapping("/account")
   public void addAccount() {
 
   }
 
+  /**
+   * Endpoint to delete a client's registration
+   * 
+   * @param id the client's uuid given in the request's param
+   */
   @DeleteMapping("/delete")
   public ResponseEntity<Client> deleteClient(@RequestParam String id) {
     try {

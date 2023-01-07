@@ -21,6 +21,7 @@ import com.app.ebanking.generator.ResponseHandler;
 import com.app.ebanking.model.Account;
 import com.app.ebanking.model.Transaction;
 
+/** Contains endpoints relating to transactions. Requires authentication. */
 @RestController
 @RequestMapping("/api/transaction")
 public class TransactionController {
@@ -30,11 +31,11 @@ public class TransactionController {
   @Autowired
   AccountRepository accountRepository;
 
-  @GetMapping("/")
-  public String greeting() {
-    return "Hello world! ";
-  }
-
+  /**
+   * Endpoint to get information about a transaction
+   * 
+   * @param id the transaction's uuid given in the request's param
+   */
   @GetMapping("/one")
   public ResponseEntity<Object> getOneTransaction(@RequestParam String id) {
     try {
@@ -49,6 +50,12 @@ public class TransactionController {
     }
   }
 
+  /**
+   * Endpoint to make a transaction associating with a client's account
+   * 
+   * @param account_iban given in the request's param
+   * @return the created transaction serialized with http status
+   */
   @PostMapping("/create")
   public ResponseEntity<Object> createTransaction(@RequestParam String account_iban,
       @RequestBody Transaction transaction) {
@@ -61,17 +68,46 @@ public class TransactionController {
           .save(new Transaction(transaction.getAmount(), transaction.getDescription(), account.get()));
       return ResponseHandler.transactionShort(HttpStatus.CREATED, new_transaction);
     } catch (Exception e) {
-      System.out.println(e);
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  @PutMapping("/{id}")
-  public void updateTransaction() {
+  // TODO: Make transactions actually change the account balance
+  /**
+   * Endpoint to update the transaction information
+   * 
+   * @param id              the transaction's uuid given in the request's param
+   * @param transaction_mod modified transaction information read from JSON. Not
+   *                        all fields are required, only the updated ones.
+   */
+  @PutMapping("/update")
+  public ResponseEntity<Object> updateTransaction(@RequestParam String id, @RequestBody Transaction transaction_mod) {
+    try {
+      UUID uuid = UUID.fromString(id);
+      Optional<Transaction> transaction_opt = transactionRepository.findById(uuid);
+      if (transaction_opt.isEmpty())
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
+      Transaction transaction = transaction_opt.get();
+      if (transaction_mod.getDescription() != null) {
+        transaction.setDescription(transaction_mod.getDescription());
+      }
+      if (transaction_mod.getAmount() != null) {
+        transaction.setAmount(transaction_mod.getAmount());
+      }
+      return ResponseHandler.transactionShort(HttpStatus.OK, transaction);
+    } catch (Exception e) {
+      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
   }
 
-  @DeleteMapping("/{id}")
+  /**
+   * Endpoint to delete a transaction
+   * 
+   * @param id the transaction's uuid given in the request's param
+   */
+  @DeleteMapping("/delete")
   public ResponseEntity<Object> deleteTransaction(@RequestParam String id) {
     try {
       UUID uuid = UUID.fromString(id);

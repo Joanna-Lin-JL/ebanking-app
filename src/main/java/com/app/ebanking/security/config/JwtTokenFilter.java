@@ -19,6 +19,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/** Parses and validates authentication tokens to load data */
 public class JwtTokenFilter extends OncePerRequestFilter {
 
   @Autowired
@@ -29,6 +30,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
   private static final Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
 
+  /**
+   * Remove the "bearer" starter in token; if "bearer" not present, return null
+   */
   private String parseJwt(HttpServletRequest request) {
     String headerAuth = request.getHeader("Authorization");
 
@@ -39,6 +43,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     return null;
   }
 
+  /** Validates the access token to load data */
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {

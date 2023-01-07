@@ -21,6 +21,10 @@ import com.app.ebanking.security.payload.AuthRequest;
 import com.app.ebanking.security.payload.AuthResponse;
 import com.app.ebanking.security.payload.MessageResponse;
 
+/**
+ * Contains endpoints relating to authentication. Does not require
+ * authentication.
+ */
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -37,6 +41,12 @@ public class AuthController {
   @Autowired
   private JwtTokenUtils tokenUtils;
 
+  /**
+   * Endpoint to signup as a client
+   * 
+   * @param authRequest contains the desire username and password of the client
+   * @return if success, JSON object with the new client uuid
+   */
   @PostMapping("/signup")
   public ResponseEntity<Object> signup(@RequestBody AuthRequest authRequest) {
     try {
@@ -53,6 +63,13 @@ public class AuthController {
     }
   }
 
+  /**
+   * Endpoint to signin to the client's account
+   * 
+   * @param authRequest the username and password to authenticate the client
+   * @return if success, JSON object with id, username, access token, and token
+   *         type. else, 401 unauthorized error
+   */
   @PostMapping("/signin")
   public ResponseEntity<Object> signin(@RequestBody AuthRequest authRequest) {
     Authentication authentication = authenticationManager.authenticate(

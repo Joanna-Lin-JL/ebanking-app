@@ -8,6 +8,7 @@ public class AuthResponse {
   private UUID id;
   private String username;
 
+  /** Object for information after authentication */
   public AuthResponse(String accessToken, UUID id, String username) {
     this.token = accessToken;
     this.id = id;

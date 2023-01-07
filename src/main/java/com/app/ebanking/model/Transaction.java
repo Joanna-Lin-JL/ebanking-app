@@ -43,6 +43,10 @@ public class Transaction {
     this.description = description;
   }
 
+  public void setAmount(String amount) {
+    this.amount = amount;
+  }
+
   public Account getAccount() {
     return account;
   }

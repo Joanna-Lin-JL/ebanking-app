@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.app.ebanking.security.service.UserDetailsServiceImpl;
 
+/** Manage the authentication processes */
 @Configuration
 @EnableMethodSecurity
 public class WebSecurityConfig {
