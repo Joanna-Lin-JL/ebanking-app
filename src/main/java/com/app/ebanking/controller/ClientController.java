@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,15 +50,15 @@ public class ClientController {
     }
   }
 
-  @PostMapping("/create")
-  public ResponseEntity<Object> createClient() {
-    try {
-      Client new_client = clientRepository.save(new Client());
-      return ResponseHandler.clientShort(HttpStatus.CREATED, new_client);
-    } catch (Exception e) {
-      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
+  // @PostMapping("/create")
+  // public ResponseEntity<Object> createClient() {
+  // try {
+  // Client new_client = clientRepository.save(new Client());
+  // return ResponseHandler.clientShort(HttpStatus.CREATED, new_client);
+  // } catch (Exception e) {
+  // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+  // }
+  // }
 
   @PutMapping("/account")
   public void addAccount() {
