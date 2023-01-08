@@ -37,6 +37,13 @@ public class Account {
     this.transactions = new ArrayList<>();
   }
 
+  public Account(String iban, Client client, String currency) {
+    this.iban = iban;
+    this.client = client;
+    this.currency = currency;
+    this.transactions = new ArrayList<>();
+  }
+
   public Account() {
   }
 

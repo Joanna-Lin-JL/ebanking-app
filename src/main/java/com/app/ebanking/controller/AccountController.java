@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,11 +58,10 @@ public class AccountController {
   public ResponseEntity<Object> createAccount(@RequestParam String client_uuid, @RequestBody Account account) {
     try {
       UUID uuid = UUID.fromString(client_uuid);
+
       Optional<Client> client = clientRepository.findById(uuid);
-
-      if (client.isEmpty())
+      if (!client.isPresent())
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
       Account new_account = accountRepository.save(new Account(client.get(), account.getCurrency()));
       return ResponseHandler.accountShort(HttpStatus.CREATED, new_account);
     } catch (Exception e) {
@@ -77,7 +75,7 @@ public class AccountController {
    * 
    * @param iban the account's iban given in the request's param
    */
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/delete")
   public ResponseEntity<Object> deleteAccount(@RequestParam String iban) {
     try {
       if (accountRepository.existsById(iban)) {

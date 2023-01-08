@@ -1,6 +1,5 @@
 package com.app.ebanking.generator;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,26 +27,29 @@ public class ResponseHandler {
       accountMap.put("currency", acc.getCurrency());
     });
     map.put("accounts", accountMap);
+    map.put("username", client.getUsername());
     return new ResponseEntity<>(map, status);
   }
 
   public static ResponseEntity<Object> accountShort(HttpStatus status, Account account) {
     Map<String, Object> map = new HashMap<>();
+    map.put("username", account.getClient().getUsername());
     map.put("iban", account.getIban());
     map.put("currency", account.getCurrency());
-    map.put("client's uuid", account.getClient().getID());
+    map.put("client_uuid", account.getClient().getID());
     return new ResponseEntity<>(map, status);
   }
 
   public static ResponseEntity<Object> transactionShort(HttpStatus status, Transaction transaction) {
     Map<String, Object> map = new HashMap<>();
 
-    map.put("transaction's uuid", transaction.getID());
+    map.put("username", transaction.getAccount().getClient().getUsername());
+    map.put("transaction_uuid", transaction.getID());
     map.put("date", transaction.getDate());
     map.put("amount", transaction.getAmount());
     map.put("description", transaction.getDescription());
-    map.put("client's uuid", transaction.getAccount().getClient().getID());
-    map.put("account's iban", transaction.getAccount().getIban());
+    map.put("client_uuid", transaction.getAccount().getClient().getID());
+    map.put("account_iban", transaction.getAccount().getIban());
     return new ResponseEntity<>(map, status);
   }
 }

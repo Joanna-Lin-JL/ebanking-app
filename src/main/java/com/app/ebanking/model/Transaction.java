@@ -36,6 +36,14 @@ public class Transaction {
     this.account = account;
   }
 
+  public Transaction(UUID uuid, String amount, String description, Account account) {
+    this.id = uuid;
+    this.date = LocalDate.now();
+    this.amount = amount;
+    this.description = description;
+    this.account = account;
+  }
+
   public Transaction() {
   }
 

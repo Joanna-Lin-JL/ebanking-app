@@ -42,19 +42,13 @@ public class ClientController {
     try {
       UUID uuid = UUID.fromString(id);
       Optional<Client> client = clientRepository.findById(uuid);
-      if (client.isEmpty())
+      if (!client.isPresent())
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
       else
-        // return new ResponseEntity<>(client.get(), HttpStatus.OK);
         return ResponseHandler.clientShort(HttpStatus.OK, client.get());
     } catch (Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-  }
-
-  @PutMapping("/account")
-  public void addAccount() {
-
   }
 
   /**
@@ -65,7 +59,9 @@ public class ClientController {
   @DeleteMapping("/delete")
   public ResponseEntity<Client> deleteClient(@RequestParam String id) {
     try {
+
       UUID uuid = UUID.fromString(id);
+
       if (clientRepository.existsById(uuid)) {
         clientRepository.deleteById(uuid);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

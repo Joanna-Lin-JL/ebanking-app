@@ -41,7 +41,7 @@ public class TransactionController {
     try {
       UUID uuid = UUID.fromString(id);
       Optional<Transaction> transaction = transactionRepository.findById(uuid);
-      if (transaction.isEmpty())
+      if (!transaction.isPresent())
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
       else
         return ResponseHandler.transactionShort(HttpStatus.OK, transaction.get());
@@ -54,6 +54,8 @@ public class TransactionController {
    * Endpoint to make a transaction associating with a client's account
    * 
    * @param account_iban given in the request's param
+   * @param transaction  information about the transaction that needs to be
+   *                     created. Given in the request's body
    * @return the created transaction serialized with http status
    */
   @PostMapping("/create")
@@ -61,7 +63,7 @@ public class TransactionController {
       @RequestBody Transaction transaction) {
     try {
       Optional<Account> account = accountRepository.findById(account_iban);
-      if (account.isEmpty())
+      if (!account.isPresent())
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
       Transaction new_transaction = transactionRepository
@@ -85,7 +87,7 @@ public class TransactionController {
     try {
       UUID uuid = UUID.fromString(id);
       Optional<Transaction> transaction_opt = transactionRepository.findById(uuid);
-      if (transaction_opt.isEmpty())
+      if (!transaction_opt.isPresent())
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
       Transaction transaction = transaction_opt.get();

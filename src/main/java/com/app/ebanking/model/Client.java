@@ -42,6 +42,14 @@ public class Client implements UserDetails {
   public Client(String username, String password) {
     this.username = username;
     this.password = password;
+    this.accounts = new ArrayList<>();
+  }
+
+  public Client(UUID id, String username, String password) {
+    this.id = id;
+    this.username = username;
+    this.password = password;
+    this.accounts = new ArrayList<>();
   }
 
   public List<Account> getAccount() {
