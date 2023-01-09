@@ -8,9 +8,11 @@
 4. Logging: Log4j2
 6. Testing: JUnit + Mockito
 <br></br>
+
 ### Database relationship diagram: 
 ![Database Relationship Diagram](./images/relationship_diagram.png)
 <br></br>
+
 ### Endpoint specifications
 For authentications: 
 ![Authentication Specs](./images/auth_specs.png)
@@ -21,5 +23,16 @@ For client data access:
 For account data access: 
 ![Account Specs](./images/account_specs.png)
 <br></br>
-For Transaction data access: 
+For transaction data access: 
 ![Transaction Spec](./images/transaction_specs.png)
+<br></br>
+
+### Authentication Processes
+Registration: 
+![Registration Process](./images/registration_diagram.png)
+<br></br>
+Login: 
+![Login Process](./images/login_diagram.png)
+<br></br>
+Data accessing: 
+![Data Accessing Process](./images/data_accessing_diagram.png)
