@@ -79,7 +79,6 @@ public class AuthController {
     String jwt = tokenUtils.generateJwtToken(authentication);
 
     Client userDetails = (Client) authentication.getPrincipal();
-    System.out.println("ran here");
     return new ResponseEntity<>(new AuthResponse(jwt,
         userDetails.getID(),
         userDetails.getUsername()), HttpStatus.OK);

@@ -65,7 +65,6 @@ public class AccountController {
       Account new_account = accountRepository.save(new Account(client.get(), account.getCurrency()));
       return ResponseHandler.accountShort(HttpStatus.CREATED, new_account);
     } catch (Exception e) {
-      System.out.println(e);
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
