@@ -19,6 +19,9 @@ public class Account {
   @Column(name = "currency")
   private String currency;
 
+  @Column(name = "balance")
+  private int balance;
+
   @OneToMany(mappedBy = "account")
   private List<Transaction> transactions;
 
