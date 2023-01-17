@@ -10,7 +10,7 @@
 <br></br>
 
 ### Code structure diagram: 
-<img src="./images/code_structure.png" width="275">
+<img src="./images/code_structure.png" width="280">
 <br></br>
 
 ### Database relationship diagram: 
@@ -18,19 +18,19 @@
 <br></br>
 
 ### Endpoint specifications
-For authentications: 
+For authentications *(does not require authentications)*: 
 ![Authentication Specs](./images/auth_specs.png)
 <br></br>
 
-For client data access: 
+For client data access *(requires authentications)*: 
 ![Client Specs](./images/client_specs.png)
 <br></br>
 
-For account data access: 
+For account data access *(requires authentications)*: 
 ![Account Specs](./images/account_specs.png)
 <br></br>
 
-For transaction data access: 
+For transaction data access *(requires authentications)*: 
 ![Transaction Spec](./images/transaction_specs.png)
 <br></br>
 
