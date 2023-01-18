@@ -13,6 +13,23 @@
 <img src="./images/code_structure.png" width="280">
 <br></br>
 
+### Classes overview: 
+1. `controller` contains classes that define the endpoint methods as specified in the section on "Endpoint specification" below. 
+2. `generator` contains classes that define the helper functions used across the application
+    - `IbanGenerator` defines the method used to randomly generate an iban for a new account to use as unique identifier
+    - `ResponseHandler` defines what information should be serialized into JSON to return to the client
+3. `model` directory contains classes that define the information stored in each database object
+4. `Repository` contains interfaces for getting information from the database
+5. `security/config` contains classes that configure the authentication processes
+    - `JwtAuthEntryPoint` handles the exceptions during authentication
+    - `JwtTokenFilter`parses and validates the authentication tokens to load data
+    - `JwtTokenUtils` generates, parses, and validates the JWT
+    - `WebSecurityConfig` manages the authentication process
+7. `security/payload` contains classes that serve as java objects during the authentication
+8. `security/service` contains `UserDetailsService` that retrieves user details during authentication
+9. `test` contains classes that define the unit testings for each endpoint and some JPA functions. It uses mock users to test for the authenticated endpoints. 
+<br></br>
+
 ### Database relationship diagram: 
 ![Database Relationship Diagram](./images/relationship_diagram.png)
 <br></br>
