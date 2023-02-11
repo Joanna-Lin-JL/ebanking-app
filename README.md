@@ -1,4 +1,4 @@
-# ***Synpulse8 Backend Hiring Challenge***
+# ***Ebanking App***
 ## ***Author: Joanna Lin***
 
 ### Implementations:
